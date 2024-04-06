@@ -2,20 +2,25 @@ import java.util.Scanner;
 
 public class AplicacionBancaria {
     public static void main(String[] args) {
+        String nombre = "Tony Stark";
+        String tipoDeCuenta = "Corriente";
+        double saldoDisponible = 1599.99;
+
         Scanner in = new Scanner(System.in);
         int opcionMenu = 0;
-        double saldoDisponible = 1599.99;
+
         String introduccion = """
                 ******************************************
                                 
-                Nombre del cliente: Tony Stark
-                Tipo de cuenta: Corriente
+                Nombre del cliente: %s
+                Tipo de cuenta: %s
                 Saldo disponible: %s$
                                 
                 ******************************************
-                """.formatted(saldoDisponible);
+                """.formatted(nombre, tipoDeCuenta, saldoDisponible);
 
         System.out.println(introduccion);
+
         while (opcionMenu != 9) {
             System.out.println("""
                     ** Escribe el número de opción deseada **
@@ -25,6 +30,7 @@ public class AplicacionBancaria {
                     9 - Salir
                     """);
             opcionMenu = in.nextInt();
+
             switch (opcionMenu) {
                 case 1:
                     System.out.println("El saldo actualizado es: " + saldoDisponible + "$");
