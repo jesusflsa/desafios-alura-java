@@ -1,6 +1,7 @@
 package com.jesusflsa.compras;
 
 import com.jesusflsa.compras.modelos.Producto;
+import com.jesusflsa.compras.modelos.TarjetaDeCredito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,43 +14,33 @@ public class Principal {
         System.out.println("Elige el límite de tu tarjeta: ");
         double saldo = in.nextDouble();
 
-        List<Producto> lista = new ArrayList<>();
+        TarjetaDeCredito tarjeta = new TarjetaDeCredito(saldo);
 
         int salir = 1;
-        while(salir != 0 && saldo > 0) {
+        while (salir != 0) {
             System.out.println("Escribe la descripcion de la compra: ");
             String descripcion = in.next();
             System.out.println("Escribe el valor de la compra: ");
             double precio = in.nextDouble();
 
-            if (precio <= saldo) {
-                saldo -= precio;
-                Producto prod = new Producto(descripcion, precio);
-                lista.add(prod);
+            Producto prod = new Producto(descripcion, precio);
+            boolean compraRealiazada = tarjeta.comprar(prod);
+
+            if (compraRealiazada) {
                 System.out.println("Compra realizada!");
-            }
-            else {
+                System.out.println("Escriba 0 para salir o 1 para continuar");
+                salir = in.nextInt();
+            } else {
                 System.out.println("Saldo insuficiente");
-                break;
+                salir = 0;
             }
-
-            System.out.println("Escriba 0 para salir o 1 para continuar");
-            salir = in.nextInt();
         }
 
-        System.out.println("""
-                *****************************
-                COMPRAS REALIZADAS
-                """);
+        System.out.println("*****************************");
+        System.out.println("COMPRAS REALIZADAS:\n");
+        tarjeta.mostrarCompras();
+        System.out.println("*****************************");
+        System.out.println("Saldo de la tarjeta: " + tarjeta.getSaldo());
 
-        for (Producto p: lista) {
-            System.out.println(p.getDescripcion() + " - " + p.getPrecio());
-        }
-
-        System.out.println("""
-                
-                *****************************
-                """);
-        System.out.println("Saldo de la tarjeta: " + saldo);
     }
 }

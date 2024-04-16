@@ -1,6 +1,6 @@
 package com.jesusflsa.compras.modelos;
 
-public class Producto {
+public class Producto implements Comparable<Producto> {
     private String descripcion;
     private double precio;
 
@@ -27,5 +27,15 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return this.getDescripcion() + " - " + this.getPrecio();
+    }
+
+    @Override
+    public int compareTo(Producto o) {
+        return Double.compare(getPrecio(), o.getPrecio());
     }
 }
